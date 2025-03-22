@@ -28,6 +28,7 @@ namespace SalesDatePrediction.Model.DaoAccess.Process.Sales
                 {
                     ObjSalesPrediction = new SalesPrediction();
 
+                    ObjSalesPrediction.CustomerId = rd["CustomerId"] == DBNull.Value ? "" : rd["CustomerId"].ToString().Trim();
                     ObjSalesPrediction.CustomerName = rd["CustomerName"] == DBNull.Value ? "" : rd["CustomerName"].ToString().Trim();
                     ObjSalesPrediction.LastOrderDate = rd["LastOrderDate"] == DBNull.Value ? "" : rd["LastOrderDate"].ToString().Trim();
                     ObjSalesPrediction.NextPredictedOrder = rd["NextPredictedOrder"] == DBNull.Value ? "" : rd["NextPredictedOrder"].ToString().Trim();

@@ -8,6 +8,7 @@ namespace SalesDatePrediction.Model.DaoAccess.Master.Sales
 {
     public class SalesPrediction
     {
+        public string CustomerId { get; set; }
         public string CustomerName { get; set; }
         public string LastOrderDate { get; set; }
         public string NextPredictedOrder { get; set; }

@@ -4,6 +4,7 @@ AS
 	--Common Table Expression Cte
 	WITH OrderDifferences AS (
     SELECT
+		c.custid AS CustomerId,
         c.companyname AS CustomerName,
         o.orderdate AS LastOrderDate,
         DATEDIFF(DAY, LAG(o.orderdate) OVER (PARTITION BY o.custid ORDER BY o.orderdate), o.orderdate) AS DaysBetweenOrders -- Obtiene la diferencia en días entre la orden actual y la anterior usando LAG()
@@ -11,12 +12,13 @@ AS
     INNER JOIN [Sales].[Customers] c ON o.custid = c.custid
 	)
 	SELECT
+		CustomerId,
 		CustomerName,
 		MAX(LastOrderDate) AS LastOrderDate, -- Obtiene la última fecha de orden registrada por el cliente
 		DATEADD(DAY, AVG(DaysBetweenOrders), MAX(LastOrderDate)) AS NextPredictedOrder --Calcula la fecha de la próxima orden sumando el promedio de días al último pedido
 	FROM OrderDifferences
 	WHERE DaysBetweenOrders IS NOT NULL -- Filtra clientes con más de una orden (para evitar valores nulos en el cálculo)
-	GROUP BY CustomerName;
+	GROUP BY CustomerId, CustomerName;
 GO
 -- Procedimiento almacenado para obtener las órdenes de un cliente específico
 CREATE PROCEDURE [Sales].[GetClientOrders] --EXEC Sales.GetClientOrders @CustomerId = 1;

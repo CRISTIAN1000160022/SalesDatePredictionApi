@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "c034a7c6-4b8d-4f50-a306-c18c22d27a97",
+		"name": "Prueba Tecnica  Codifico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43304870",
+		"_collection_link": "https://restless-zodiac-887726.postman.co/workspace/Team-Workspace~f2fa0d43-f7d9-4aab-81db-9d43e772300a/collection/43304870-c034a7c6-4b8d-4f50-a306-c18c22d27a97?action=share&source=collection_link&creator=43304870"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Crear una variable jsonData que almacena la respuesta completa\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"// Mostrar la respuesta en la consola para depuración\r",
+									"console.log(jsonData);\r",
+									"\r",
+									"// Almacenar el token en una variable global correctamente\r",
+									"pm.globals.set(\"token_authenticate\", jsonData.Data);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Username\":\"admin\",\r\n    \"Password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44301/Login/AuthenticateToken",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44301",
+							"path": [
+								"Login",
+								"AuthenticateToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sales",
+			"item": [
+				{
+					"name": "GetSalesDatePrediction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_authenticate}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44301/Sales/SalesDatePrediction",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44301",
+							"path": [
+								"Sales",
+								"SalesDatePrediction"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "GetOrderByClient",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_authenticate}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44301/Order/GetOrderByClient/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44301",
+							"path": [
+								"Order",
+								"GetOrderByClient",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateNewOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_authenticate}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Empid\": 1,\r\n    \"Shipid\": 2,\r\n    \"Shipname\": \"Nombre del envío\",\r\n    \"Shipaddress\": \"Dirección del envío\",\r\n    \"Shipcity\": \"Bogotá D.C.\",\r\n    \"Orderdate\": \"2025-03-21\",\r\n    \"Requireddate\": \"2025-03-28\",\r\n    \"Shippeddate\": \"2025-03-22\",\r\n    \"Freight\": 100.50,\r\n    \"Shipcountry\": \"País del envío\",\r\n    \"Productid\": 3,\r\n    \"Unitprice\": 50.75,\r\n    \"Qty\": 10,\r\n    \"Discount\": 0.1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44301/Order/CreateNewOrder",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44301",
+							"path": [
+								"Order",
+								"CreateNewOrder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "GetEmployee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_authenticate}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44301/Employee/GetAllEmployees",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44301",
+							"path": [
+								"Employee",
+								"GetAllEmployees"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shipper",
+			"item": [
+				{
+					"name": "GetShipper",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_authenticate}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44301/Shipper/GetAllShippers",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44301",
+							"path": [
+								"Shipper",
+								"GetAllShippers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "GetProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_authenticate}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44301/Product/GetAllProducts",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44301",
+							"path": [
+								"Product",
+								"GetAllProducts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
